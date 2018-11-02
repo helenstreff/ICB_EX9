@@ -1,0 +1,17 @@
+#Problem #1
+from plotnine import *
+import pandas as pd
+resistance=pd.read_table("ResistanceData.txt",header=0,sep="\t")
+resistance
+b=ggplot(resistance,aes(x="Length",y="Resistance"))
+b+geom_point()+coord_cartesian()+xlab("Length (m)")+ylab("Resistance (Ohms)")+theme_classic()+stat_smooth(method="lm")
+
+#Problem #2
+data=pd.read_table("data.txt",header=0,sep=",")
+data
+import numpy
+j=ggplot(data)+theme_classic()+xlab("region")+ylab("observations")
+j+geom_bar(aes(x="factor(region)",y="observations"),stat="summary",fun_y=numpy.mean)
+data.groupby(['region'])['observations'].mean()
+j+geom_jitter(aes(x="factor(region)",y="observations"))+coord_cartesian()+xlab("Region")+ylab("Observations")
+#The bar and scatter plots tell different stories, because the variation can only be seen in the scatter plot, even though the means are all relatively similar
